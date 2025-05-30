@@ -10,7 +10,7 @@ const Page = () => {
     <main>
       <h1 className="text-2xl">Dashboard</h1>
         <section className='home-section'>
-          <CompanionCard 
+          <CompanionCard
             id="123"
             name="Neura the Brainy Explorer"
             topic="Neural Network of the Brain"
@@ -18,7 +18,7 @@ const Page = () => {
             duration={45}
             color="#ffda6e"
           />
-          <CompanionCard 
+          <CompanionCard
             id="456"
             name="Countsy the Number Wizard"
             topic="Derivatives & Integrals"
@@ -26,7 +26,7 @@ const Page = () => {
             duration={30}
             color="#e5d0ff"
           />
-          <CompanionCard 
+          <CompanionCard
             id="789"
             name="Verba the Vocabulary Builder"
             topic="Language"
@@ -37,7 +37,7 @@ const Page = () => {
         </section>
 
         <section className='home-section'>
-          <CompanionsList 
+          <CompanionsList
             title="Recently completed sessions"
             companions={recentSessions}
             classNames="w-2/3 max-lg:w-full"

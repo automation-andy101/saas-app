@@ -23,6 +23,7 @@ import {
     SelectValue,
   } from "@/components/ui/select"
 import { subjects } from "@/constants"
+import { Textarea } from "./ui/textarea"
 
 const formSchema = z.object({
     name: z.string().min(1, { message: 'Companion is required.' }),
@@ -66,9 +67,6 @@ const CompanionForm = () => {
                             className="input" 
                         />
                     </FormControl>
-                    <FormDescription>
-                        This is your public display name.
-                    </FormDescription>
                     <FormMessage />
                 </FormItem>
                 )}
@@ -81,30 +79,75 @@ const CompanionForm = () => {
                 <FormItem>
                     <FormLabel>Subject</FormLabel>
                     <FormControl>
-                    <Select
-                        onValueChange={field.onChange}
-                        value={field.value}
-                        defaultValue={field.value}
-                    >
-                        <SelectTrigger className="input capitalize">
-                            <SelectValue placeholder="Select the subject" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            {subjects.map((subject) => (
-                                <SelectItem 
-                                    value={subject}
-                                    key={subject}
-                                    className="capitalize"
-                                >
-                                    {subject}
+                        <Select
+                            onValueChange={field.onChange}
+                            value={field.value}
+                            defaultValue={field.value}
+                        >
+                            <SelectTrigger className="input capitalize">
+                                <SelectValue placeholder="Select the subject" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                {subjects.map((subject) => (
+                                    <SelectItem 
+                                        value={subject}
+                                        key={subject}
+                                        className="capitalize"
+                                    >
+                                        {subject}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                    </FormControl>
+                    <FormMessage />
+                </FormItem>
+                )}
+            />
+
+            <FormField
+                control={form.control}
+                name="topic"
+                render={({ field }) => (
+                <FormItem>
+                    <FormLabel>What should the companion help with?</FormLabel>
+                    <FormControl>
+                        <Textarea 
+                            placeholder="Ex. Derivatives & Integrals"
+                            {...field} 
+                            className="input" 
+                        />
+                    </FormControl>
+                    <FormMessage />
+                </FormItem>
+                )}
+            />
+
+            <FormField
+                control={form.control}
+                name="voice"
+                render={({ field }) => (
+                <FormItem>
+                    <FormLabel>Voice</FormLabel>
+                    <FormControl>
+                        <Select
+                            onValueChange={field.onChange}
+                            value={field.value}
+                            defaultValue={field.value}
+                        >
+                            <SelectTrigger className="input">
+                                <SelectValue placeholder="Select the voice" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="male">
+                                    Male
                                 </SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
+                                <SelectItem value="female">
+                                    Female
+                                </SelectItem>
+                            </SelectContent>
+                        </Select>
                     </FormControl>
-                    <FormDescription>
-                        This is your public display name.
-                    </FormDescription>
                     <FormMessage />
                 </FormItem>
                 )}
@@ -112,20 +155,29 @@ const CompanionForm = () => {
 
             <FormField
                 control={form.control}
-                name="name"
+                name="style"
                 render={({ field }) => (
                 <FormItem>
-                    <FormLabel>Companion name</FormLabel>
+                    <FormLabel>Style</FormLabel>
                     <FormControl>
-                        <Input 
-                            placeholder="Enter the companion name"
-                            {...field} 
-                            className="input" 
-                        />
+                        <Select
+                            onValueChange={field.onChange}
+                            value={field.value}
+                            defaultValue={field.value}
+                        >
+                            <SelectTrigger className="input">
+                                <SelectValue placeholder="Select the style" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="formal">
+                                    Formal
+                                </SelectItem>
+                                <SelectItem value="casual">
+                                    Casual
+                                </SelectItem>
+                            </SelectContent>
+                        </Select>
                     </FormControl>
-                    <FormDescription>
-                        This is your public display name.
-                    </FormDescription>
                     <FormMessage />
                 </FormItem>
                 )}
@@ -133,68 +185,24 @@ const CompanionForm = () => {
 
             <FormField
                 control={form.control}
-                name="name"
+                name="duration"
                 render={({ field }) => (
                 <FormItem>
-                    <FormLabel>Companion name</FormLabel>
+                    <FormLabel>Estimated session duration in minutes</FormLabel>
                     <FormControl>
-                        <Input 
-                            placeholder="Enter the companion name"
+                        <Input
+                            type="number"
+                            placeholder="15"
                             {...field} 
                             className="input" 
                         />
                     </FormControl>
-                    <FormDescription>
-                        This is your public display name.
-                    </FormDescription>
                     <FormMessage />
                 </FormItem>
                 )}
             />
 
-            <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                <FormItem>
-                    <FormLabel>Companion name</FormLabel>
-                    <FormControl>
-                        <Input 
-                            placeholder="Enter the companion name"
-                            {...field} 
-                            className="input" 
-                        />
-                    </FormControl>
-                    <FormDescription>
-                        This is your public display name.
-                    </FormDescription>
-                    <FormMessage />
-                </FormItem>
-                )}
-            />
-
-            <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                <FormItem>
-                    <FormLabel>Companion name</FormLabel>
-                    <FormControl>
-                        <Input 
-                            placeholder="Enter the companion name"
-                            {...field} 
-                            className="input" 
-                        />
-                    </FormControl>
-                    <FormDescription>
-                        This is your public display name.
-                    </FormDescription>
-                    <FormMessage />
-                </FormItem>
-                )}
-            />
-
-          <Button type="submit">Submit</Button>
+          <Button type="submit" className="w-full cursor-pointer">Build Your Companion</Button>
         </form>
       </Form>
     )
