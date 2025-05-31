@@ -12,7 +12,7 @@ export const createCompanion = async (formData: CreateCompanion) => {
         .insert({...formData, author })
         .select();
 
-    if(error || !data) throw new Error(error?.message || 'Failed to create a companion');
+    if (error || !data) throw new Error(error?.message || 'Failed to create a companion');
 
     return data[0];
 }
