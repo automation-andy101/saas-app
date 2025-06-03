@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react"
 import Image from "next/image";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import soundwaves from '@/constants/soundwaves.json';
+import { addToSessionHistory } from "@/lib/actions/companion.actions";
 
 enum CallStatus {
     INACTIVE = 'INACTIVE',
@@ -61,7 +62,10 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
 
     useEffect(() => {
         const onCallStart = () => setCallStatus(CallStatus.ACTIVE);
-        const onCallEnd = () => setCallStatus(CallStatus.FINISHED);
+        const onCallEnd = () => {
+            setCallStatus(CallStatus.FINISHED);
+            addToSessionHistory(companionId)
+        }    
         const onMessage = (message: Message) => {
             if (message.type === 'transcript' && message.transcriptType === 'final') {
                 const newMessage = { role: message.role, content: message.transcript };
@@ -124,7 +128,7 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
                             {userName}
                         </p>
                     </div>
-                    <button className="btn-mic" onClick={toggleMicrophone}>
+                    <button className="btn-mic" onClick={toggleMicrophone} disabled={callStatus !== CallStatus.ACTIVE}>
                         <Image
                             src={isMuted ? '/icons/mic-off.svg' : '/icons/mic-on.svg'}
                             alt="mic"
@@ -149,17 +153,24 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
 
             <section className="transcript">
                 <div className="transcript-message no-scrollbar">
-                    {messages.map((message) => {
+                    {messages.map((message, index) => {
                         if (message.role === 'assistant') {
                             return (
-                                <p key={message.content} className="max-sm:text-sm">
-                                    // replace any dots or commas with an empty string
-                                    {name.split(' ')[0].replace('/[.,]/g,', '')}
+                                <p key={index} className="max-sm:text-sm">
+                                    {name
+                                        .split(' ')[0]
+                                        .replace('/[.,]/g,', '')
+                                    }: {message.content}
                                 </p>
                             )
+                        } else {
+                            return <p key={index} className="text-primary max-sm:text-sm">
+                                {userName}: {message.content}
+                            </p>
                         }
                     })}   
                 </div>
+
                 <div className="transcript-fade" />
             </section>
         </section>
